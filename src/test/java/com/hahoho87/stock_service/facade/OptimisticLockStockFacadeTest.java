@@ -1,4 +1,4 @@
-package com.hahoho87.stock_service.service;
+package com.hahoho87.stock_service.facade;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -17,11 +17,10 @@ import com.hahoho87.stock_service.domain.Stock;
 import com.hahoho87.stock_service.repository.StockRepository;
 
 @SpringBootTest
-class StockServiceTest {
+class OptimisticLockStockFacadeTest {
 
 	@Autowired
-//	private StockService stockService;
-	private PessimisticLockStockService stockService;
+	private OptimisticLockStockFacade stockService;
 
 	@Autowired
 	private StockRepository stockRepository;
@@ -38,21 +37,6 @@ class StockServiceTest {
 	}
 
 	@Test
-	@DisplayName("재고를 감소시킨다.")
-	void decreaseTest() {
-		// given
-		Long id = 1L;
-		Long quantity = 10L;
-
-		// when
-		stockService.decrease(id, quantity);
-
-		// then
-		Stock stock = stockRepository.findById(id).get();
-		assertThat(stock.getQuantity()).isEqualTo(90L);
-	}
-
-	@Test
 	@DisplayName("동시에 재고를 감소시킨다.")
 	void concurrencyDecreaseTest() throws InterruptedException {
 		//given
@@ -64,6 +48,8 @@ class StockServiceTest {
 			executorService.submit(() -> {
 				try {
 					stockService.decrease(1L, 1L);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				} finally {
 					latch.countDown();
 				}
@@ -74,5 +60,6 @@ class StockServiceTest {
 
 		Stock stock = stockRepository.findById(1L).orElseThrow();
 		assertThat(stock.getQuantity()).isZero();
+
 	}
 }

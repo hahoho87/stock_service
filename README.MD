@@ -30,6 +30,8 @@ docker run --name mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mariadb
 #### optimistic lock
 - lock 을 걸지않고 문제가 발생할 때 처리
 - version column 을 만들어 해결
+- 실패 로직을 구현해야함
+- 충돌이 빈번하게 일어나게 된다면 pessimistic lock 보다 더 느려짐
 #### pessimistic lock
 - 다른 트랜잭션이 특정 row 의 lock 을 얻는 것을 방지
 - 특정 row 를 update 하거나 delete 할 수 있음
