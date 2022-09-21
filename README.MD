@@ -49,7 +49,9 @@
 #### lettuce
 - 구현이 간단
 - spin lock 방식으로 redis 에 부하 발생 가능성
+- 재시도가 필요하지 않은 경우 고려
 #### redisson
 - pub / sub 방식으로 구현 - redis 부하 적음
 - 구현이 복잡
 - 별도의 library 사용
+- 재시도가 필요한 경우 고려
