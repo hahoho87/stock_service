@@ -17,10 +17,10 @@ import com.hahoho87.stock_service.domain.Stock;
 import com.hahoho87.stock_service.repository.StockRepository;
 
 @SpringBootTest
-class NamedLockStockFacadeTest {
+class LettuceLockStockFacadeTest {
 
 	@Autowired
-	private NamedLockStockFacade namedLockStockFacade;
+	private LettuceLockStockFacade lettuceLockStockFacade;
 
 	@Autowired
 	private StockRepository stockRepository;
@@ -47,7 +47,9 @@ class NamedLockStockFacadeTest {
 		for (int i = 0; i < threadCount; i++) {
 			executorService.submit(() -> {
 				try {
-					namedLockStockFacade.decrease(1L, 1L);
+					lettuceLockStockFacade.decrease(1L, 1L);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				} finally {
 					latch.countDown();
 				}

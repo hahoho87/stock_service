@@ -44,3 +44,10 @@
 ### named lock
 - 이름과 함께 lock 획득. 해당 lock 은 다른 세션에서 획득 및 해제 불가
 - connection pool 을 다수 차지할 수 있어 다른 datasource 사용 권장
+
+### Redis lock
+#### lettuce
+- 구현이 간단
+- spin lock 방식으로 redis 에 부하 발생 가능성
+#### redisson
+- pub / sub 방식으로 구현
