@@ -5,7 +5,12 @@
 ## Getting Started
 
 ```bash
-docker run --name mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mariadb
+> docker run --name mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mariadb
+> docker exec -it mariadb
+
+> mysql -u root -p
+> create database stock_example;
+> use stock_example;
 ```
 
 ## 자바 동시성 이슈
